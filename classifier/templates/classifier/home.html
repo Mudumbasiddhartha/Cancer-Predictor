@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DJANGO-CANCER-ROC</title>
+    <style>
+      h1{
+        text-align: center;
+        color: red;
+      }
+      main{
+        margin-left: 20vw;
+        align-items: center;
+        justify-content: center;
+      }
+      h2{
+        color: blue;
+      }
+      #submi{
+        background-color: rgb(71, 71, 225);
+        color: white;
+        margin-top: 1vh;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="center">Cancer Data - Decision tree Classifier</h1>
+    
+    <main>
+    <h2>Upload the training (.xlsx) and testing data(.csv) files</h1>
+      
+    <form action="/home/" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      Train data: <input type="file" name="train_file" required accept=".xlsx"/><br>
+      <br>
+      Test data: <input type="file" name="test_file" required accept=".csv"/><br>
+      <button type="submit" id="submi">Classify Now</button>
+    </form>
+    {% autoescape off %} {{ plot_div }} {% endautoescape %}
+    <h2>Prediction Based on given train data for test data: </h2>
+    {% if read == 1 %}
+      <h3 style="color: red;">The cell is <b> affected</h3>
+    {% elif read == 0 %}
+      <h3 style="color: green;">The cell is <b>not</b> affected</h3>
+    {% else %}
+      <h3 style="color: blue;">No data uploaded!</h3>
+    
+    {% endif %}
+  </main>
+  </body>
+</html>
